@@ -6,61 +6,76 @@ use Illuminate\Http\Request;
 
 class KruskalController extends Controller
 {
+
 //Алгоритм поиска минимального остовного дерева (Kruskals algorithm):
     function getKruskal(Request $request)
     {
-        $graph = [
-            'A' => ['B' => $request->AB, 'C' => $request->AC],
-            'B' => ['A' => $request->BA, 'C' => $request->BC, 'D' => $request->BD],
-            'C' => ['A' => $request->CA, 'B' => $request->CB, 'D' => $request->CD],
-            'D' => ['B' => $request->DB, 'C' => $request->DC]
-        ];
+        $graph = array(
+            array($request->A1, $request->A2, $request->A3, $request->A4, $request->A5),
+            array($request->B1, $request->B2, $request->B3, $request->B4, $request->B5),
+            array($request->C1, $request->C2, $request->C3, $request->C4, $request->C5),
+            array($request->D1, $request->D2, $request->D3, $request->D4, $request->D5),
+            array($request->E1, $request->E2, $request->E3, $request->E4, $request->E5),
+        );
 
-        // инициализируем список вершин и ребер
-        $vertices = array();
+        $n = count($graph); // Количество вершин в графе
+        $parent = array(); // Массив для хранения родительских вершин
+
+        // Функция для поиска родительской вершины
+        function findParent($i, &$parent) {
+            while ($parent[$i] != $i) {
+                $i = $parent[$i];
+            }
+            return $i;
+        }
+
+        // Функция для объединения двух поддеревьев
+        function union($i, $j, &$parent) {
+            $iParent = findParent($i, $parent);
+            $jParent = findParent($j, $parent);
+            $parent[$iParent] = $jParent;
+        }
+
+        // Инициализируем массив родительских вершин
+        for ($i = 0; $i < $n; $i++) {
+            $parent[$i] = $i;
+        }
+
+        // Сортируем все ребра по возрастанию стоимости
         $edges = array();
-        foreach ($graph as $node => $neighbors) {
-            $vertices[$node] = $node;
-            foreach ($neighbors as $neighbor => $weight) {
-                $edges[] = array('u' => $node, 'v' => $neighbor, 'w' => $weight);
+        for ($i = 0; $i < $n; $i++) {
+            for ($j = 0; $j < $n; $j++) {
+                if ($graph[$i][$j] != 0) {
+                    $edges[] = array($i, $j, $graph[$i][$j]);
+                }
             }
         }
-        // сортируем ребра по возрастанию веса
-        usort($edges, function ($a, $b) {
-            return $a['w'] - $b['w'];
+        usort($edges, function($a, $b) {
+            return $a[2] - $b[2];
         });
-        // проходим по отсортированным ребрам и добавляем их в остовное дерево
-        $mst = array();
+
+        // Добавляем ребра, исключая циклы
+        $result = array();
         foreach ($edges as $edge) {
-            $u = $edge['u'];
-            $v = $edge['v'];
-            $w = $edge['w'];
-            // проверяем, не образует ли ребро цикл
-            $root1 = $this->find($u, $vertices);
-            $root2 = $this->find($v, $vertices);
-            if ($root1 != $root2) {
-                $mst[] = array('u' => $u, 'v' => $v, 'w' => $w);
-                $vertices[$root1] = $root2;
+            $u = $edge[0];
+            $v = $edge[1];
+            $w = $edge[2];
+            if (findParent($u, $parent) != findParent($v, $parent)) {
+                union($u, $v, $parent);
+                $result[] = array($u, $v, $w);
             }
         }
-      //  dd($mst);
+
         return view('kruskal_graph.result', [
-            'result' => $mst
+            'result' => $result,
+            'title' => 'Результат для алгоритма поиска минимального остовного дерева (алгоритм Крускала)',
         ]);
     }
 
-// функция поиска корня дерева
-    function find($node, &$vertices)
+    public function index()
     {
-        while ($vertices[$node] != $node) {
-            $node = $vertices[$node];
-        }
-        return $node;
-    }
-
-    public function index() {
         return view('kruskal_graph.index', [
-            'title' => 'kruskal'
+            'title' => 'Алгоритм поиска минимального остовного дерева (алгоритм Крускала)'
         ]);
     }
 }

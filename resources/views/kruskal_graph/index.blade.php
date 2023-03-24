@@ -2,60 +2,99 @@
 @section('content')
 
     @include('components.headers')
-    <form action="{{route('kruskal.post')}}" method="POST">
+    <form action="{{route('kruskal.post')}}" class="w-25" method="POST">
         @csrf
         <h5>Для вершины А</h5>
         <div class="mb-3">
-            <label for="АB" class="form-label">B</label>
-            <input type="number" name="АB" class="form-control" id="АB">
+            <label for="A1" class="form-label">1</label>
+            <input type="number" name="A1" class="form-control" id="A1">
         </div>
         <div class="mb-3">
-            <label for="АC" class="form-label">C</label>
-            <input type="number" name="АC" class="form-control" id="АC">
+            <label for="A2" class="form-label">2</label>
+            <input type="number" name="A2" class="form-control" id="A2">
+        </div>
+        <div class="mb-3">
+            <label for="A3" class="form-label">3</label>
+            <input type="number" name="A3" class="form-control" id="A3">
+        </div>
+        <div class="mb-3">
+            <label for="A4" class="form-label">4</label>
+            <input type="number" name="A4" class="form-control" id="A4">
+        </div>
+        <div class="mb-3">
+            <label for="A5" class="form-label">5</label>
+            <input type="number" name="A5" class="form-control" id="A5">
         </div>
 
 
         <h5>Для вершины B</h5>
         <div class="mb-3">
-            <label for="BA" class="form-label">A</label>
-            <input type="number" name="BA" class="form-control" id="BA">
+            <label for="B1" class="form-label">1</label>
+            <input type="number" name="B1" class="form-control" id="B1">
         </div>
         <div class="mb-3">
-            <label for="BC" class="form-label">C</label>
-            <input type="number" name="BC" class="form-control" id="BC">
+            <label for="B2" class="form-label">2</label>
+            <input type="number" name="B2" class="form-control" id="B2">
         </div>
         <div class="mb-3">
-            <label for="BD" class="form-label">D</label>
-            <input type="number" name="BD" class="form-control" id="BD">
+            <label for="B3" class="form-label">3</label>
+            <input type="number" name="B3" class="form-control" id="B3">
+        </div>
+        <div class="mb-3">
+            <label for="B4" class="form-label">4</label>
+            <input type="number" name="B4" class="form-control" id="B4">
+        </div>
+        <div class="mb-3">
+            <label for="B5" class="form-label">5</label>
+            <input type="number" name="B5" class="form-control" id="B5">
         </div>
 
         <h5>Для вершины C</h5>
         <div class="mb-3">
-            <label for="CA" class="form-label">A</label>
-            <input type="number" name="CA" class="form-control" id="CA">
+            <label for="C1" class="form-label">1</label>
+            <input type="number" name="C1" class="form-control" id="C1">
         </div>
         <div class="mb-3">
-            <label for="CB" class="form-label">B</label>
-            <input type="number" name="CB" class="form-control" id="CB">
+            <label for="C2" class="form-label">2</label>
+            <input type="number" name="C2" class="form-control" id="C2">
         </div>
         <div class="mb-3">
-            <label for="CD" class="form-label">D</label>
-            <input type="number" name="CD" class="form-control" id="CD">
+            <label for="C3" class="form-label">3</label>
+            <input type="number" name="C3" class="form-control" id="C3">
+        </div>
+        <div class="mb-3">
+            <label for="C4" class="form-label">4</label>
+            <input type="number" name="C4" class="form-control" id="C4">
+        </div>
+        <div class="mb-3">
+            <label for="C5" class="form-label">5</label>
+            <input type="number" name="C5" class="form-control" id="C5">
         </div>
 
 
         <h5>Для вершины D</h5>
         <div class="mb-3">
-            <label for="DB" class="form-label">B</label>
-            <input type="number" name="DB" class="form-control" id="DB">
+            <label for="D1" class="form-label">1</label>
+            <input type="number" name="D1" class="form-control" id="D1">
         </div>
         <div class="mb-3">
-            <label for="DC" class="form-label">C</label>
-            <input type="number" name="DC" class="form-control" id="DC">
+            <label for="D2" class="form-label">2</label>
+            <input type="number" name="D2" class="form-control" id="D2">
+        </div>
+        <div class="mb-3">
+            <label for="D3" class="form-label">3</label>
+            <input type="number" name="D3" class="form-control" id="D3">
+        </div>
+        <div class="mb-3">
+            <label for="D4" class="form-label">4</label>
+            <input type="number" name="D4" class="form-control" id="D4">
+        </div>
+        <div class="mb-3">
+            <label for="D5" class="form-label">5</label>
+            <input type="number" name="D5" class="form-control" id="D5">
         </div>
 
 
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Вычислить</button>
     </form>
 @endsection

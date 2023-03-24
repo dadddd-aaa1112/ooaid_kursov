@@ -7,29 +7,46 @@ use Illuminate\Http\Request;
 class BFSController extends Controller
 {
 //Алгоритм обхода в ширину (Breadth First Search)
-    function getBFS($graph, $start)
+    function getBFS(Request $request)
     {
-        $queue = array();
+        $graph = array(
+            'A' => array($request->A1, $request->A2),
+            'B' => array($request->B1, $request->B2, $request->B3),
+            'C' => array($request->C1, $request->C2),
+            'D' => array($request->D1),
+            'E' => array($request->E1, $request->E2),
+            'F' => array($request->F1, $request->F2)
+        );
+
         $visited = array();
-        array_push($queue, $start);
-        $visited[$start] = true;
+        $queue = array($request->start);
 
-        while (!empty($queue)) {
-            $node = array_shift($queue);
-            echo $node . " ";
+        while ($queue) {
+            $vertex = array_shift($queue);
+            if (!in_array($vertex, $visited)) {
 
-            foreach ($graph[$node] as $neighbor) {
-                if (!$visited[$neighbor]) {
-                    array_push($queue, $neighbor);
-                    $visited[$neighbor] = true;
+                    $visited[] = $vertex;
+                    $neighbors = $graph[$vertex];
+                    foreach ($neighbors as $neighbor) {
+                        if (!in_array($neighbor, $visited)) {
+                            $queue[] = $neighbor;
+                        }
+
                 }
             }
         }
+
+
+        return view('bfs.result', [
+            'result' => $visited,
+            'title' => 'Результат для Алгоритм обхода в ширину (Breadth First Search)',
+        ]);
     }
 
-    public function index() {
+    public function index()
+    {
         return view('bfs.index', [
-            'title' => 'bfs'
+            'title' => 'Алгоритм обхода в ширину (Breadth First Search)'
         ]);
     }
 }

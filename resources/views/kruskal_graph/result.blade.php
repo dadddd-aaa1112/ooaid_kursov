@@ -1,11 +1,16 @@
-@foreach($result as $key => $val)
-    вершина - {{$val['u']}}
-    сосед - {{$val['v']}}
-    @if(!empty($val['w']))
-        вес - {{$val['w']}}
-    @endif
+@extends('index')
+@section('content')
+
+    @include('components.headers')
     <br>
     <br>
-@endforeach
+    @foreach($result as $key => $val)
+        вершина - {{$val[0]}}
+        сосед - {{$val[1]}}
+        вес - {{$val[2]}}
 
+        <br>
+        <br>
+    @endforeach
 
+@endsection

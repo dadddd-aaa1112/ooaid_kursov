@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 class DijkstraController extends Controller
 {
 //Код алгоритма Дейкстры для поиска кратчайшего пути взвешенного графа
-    public function getDijkstra($graph, $source)
+    public function getDijkstra(Request $request)
     {
+        $graph = [
+            'A' => ['B' => $request->AB, 'C' => $request->AC],
+            'B' => ['A' => $request->BA, 'C' => $request->BC, 'D' => $request->BD],
+            'C' => ['A' => $request->CA, 'B' => $request->CB, 'D' => $request->CD],
+            'D' => ['B' => $request->DB, 'C' => $request->DC]
+        ];
+
         $dist = array(); // расстояние от источника до каждой вершины
         $visited = array(); // посещенные вершины
         $prev = array(); // предыдущие вершины на пути от источника
@@ -17,9 +24,9 @@ class DijkstraController extends Controller
             $visited[$node] = false;
             $prev[$node] = null;
         }
-        $dist[$source] = 0; // расстояние от источника до источника равно 0
+        $dist[$request->source] = 0; // расстояние от источника до источника равно 0
         for ($i = 0; $i < count($graph); $i++) {
-            $u = minDistance($dist, $visited); // выбираем вершину с минимальным расстоянием
+            $u = $this->minDistance($dist, $visited); // выбираем вершину с минимальным расстоянием
             $visited[$u] = true;
             foreach ($graph[$u] as $v => $weight) {
                 $alt = $dist[$u] + $weight; // вычисляем новое расстояние
@@ -29,7 +36,14 @@ class DijkstraController extends Controller
                 }
             }
         }
-        return array('dist' => $dist, 'prev' => $prev);
+
+        //return array('dist' => $dist, 'prev' => $prev);
+
+        return view('dijkstra_graph.result', [
+            'dist' => $dist,
+            'prev' => $prev,
+            'title' => 'Результат для алгоритма Дейкстры (Алгоритм поиска кратчайшего пути)',
+        ]);
     }
 
 // функция для выбора вершины с минимальным расстоянием
@@ -48,7 +62,7 @@ class DijkstraController extends Controller
 
     public function index() {
         return view('dijkstra_graph.index', [
-            'title' => 'dijkstra'
+            'title' => 'Алгоритм Дейкстры (Алгоритм поиска кратчайшего пути )'
         ]);
     }
 }
