@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 class KruskalController extends Controller
 {
 //Алгоритм поиска минимального остовного дерева (Kruskals algorithm):
-    function getKruskal($graph)
+    function getKruskal(Request $request)
     {
+        $graph = [
+            'A' => ['B' => $request->AB, 'C' => $request->AC],
+            'B' => ['A' => $request->BA, 'C' => $request->BC, 'D' => $request->BD],
+            'C' => ['A' => $request->CA, 'B' => $request->CB, 'D' => $request->CD],
+            'D' => ['B' => $request->DB, 'C' => $request->DC]
+        ];
+
         // инициализируем список вершин и ребер
         $vertices = array();
         $edges = array();
@@ -29,14 +36,17 @@ class KruskalController extends Controller
             $v = $edge['v'];
             $w = $edge['w'];
             // проверяем, не образует ли ребро цикл
-            $root1 = find($u, $vertices);
-            $root2 = find($v, $vertices);
+            $root1 = $this->find($u, $vertices);
+            $root2 = $this->find($v, $vertices);
             if ($root1 != $root2) {
                 $mst[] = array('u' => $u, 'v' => $v, 'w' => $w);
                 $vertices[$root1] = $root2;
             }
         }
-        return $mst;
+      //  dd($mst);
+        return view('kruskal_graph.result', [
+            'result' => $mst
+        ]);
     }
 
 // функция поиска корня дерева

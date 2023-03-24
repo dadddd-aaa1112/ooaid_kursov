@@ -7,20 +7,27 @@ use Illuminate\Http\Request;
 class DFSController extends Controller
 {
     //Код алгоритма обхода в глубину для графа
-    public function getDFS($graph, $start)
+    public function getDFS(Request $request)
     {
+        dd($request);
         $visited = array();
-        foreach ($graph as $node => $neighbors) {
+        foreach ($request->graph as $node => $neighbors) {
             $visited[$node] = false;
         }
 
-        $visited[$start] = true;
-        echo $start . " ";
-        foreach ($graph[$start] as $node) {
+        $visited[$request->start] = true;
+
+        $result = array();
+        array_push($result, $request->start);
+        //echo $start . " ";
+        foreach ($request->graph[$request->start] as $node) {
             if (!$visited[$node]) {
-                getDFS($graph, $node, $visited);
+                getDFS($request->graph, $node, $visited);
             }
         }
+        return redirect()->route('', [
+           'result' => $result
+        ]) ;
     }
 
     public function index() {
