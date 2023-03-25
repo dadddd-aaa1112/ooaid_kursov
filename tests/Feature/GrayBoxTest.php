@@ -109,13 +109,6 @@ class GrayBoxTest extends TestCase
         $response = $this->get('/dijkstra');
         $response->assertStatus(200);
 
-//        $graph = [
-//            'A' => ['B' => $request->AB, 'C' => $request->AC],
-//            'B' => ['A' => $request->BA, 'C' => $request->BC, 'D' => $request->BD],
-//            'C' => ['A' => $request->CA, 'B' => $request->CB, 'D' => $request->CD],
-//            'D' => ['B' => $request->DB, 'C' => $request->DC]
-//        ];
-
         // Создаем фейковый Request
         $request = new Request([
             'source' => 'A',
