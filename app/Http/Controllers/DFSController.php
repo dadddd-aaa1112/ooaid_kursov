@@ -25,7 +25,7 @@ class DFSController extends Controller implements GetDFSInterface
 
         $visited = $this->DFS($request, $graph);
 
-        return view('bfs.result', [
+        return view('dfs.result', [
             'result' => $visited,     // Возвращаем список посещенных вершин
             'title' => 'Результат для Алгоритма обхода в глубину (Depth First Search)',
         ]);

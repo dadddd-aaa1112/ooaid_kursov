@@ -92,7 +92,7 @@ class GrayBoxTest extends TestCase
         $result = $this->controllerDFS->getDFS($request);
 
         // Проверяем, что возвращается view с нужными параметрами
-        $this->assertEquals('bfs.result', $result->getName());
+        $this->assertEquals('dfs.result', $result->getName());
         $this->assertArrayHasKey('result', $result->getData());
         $this->assertArrayHasKey('title', $result->getData());
         $this->assertEquals('Результат для Алгоритма обхода в глубину (Depth First Search)', $result->getData()['title']);
