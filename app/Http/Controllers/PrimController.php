@@ -28,7 +28,7 @@ class PrimController extends Controller
 
     public function index()
     {
-        return view('kruskal_graph.index', [
+        return view('prim_graph.index', [
             'title' => 'Алгоритм поиска минимального остовного дерева (алгоритм Прима)'
         ]);
     }
