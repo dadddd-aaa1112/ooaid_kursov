@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Contracts\GetDFSInterface;
+use App\Http\Traits\GraphTrait;
 use Illuminate\Http\Request;
 
-class DFSController extends Controller
+class DFSController extends Controller implements GetDFSInterface
 {
+    use GraphTrait;
+
     //Код алгоритма обхода в глубину для графа
     public function getDFS(Request $request)
     {
@@ -19,22 +23,7 @@ class DFSController extends Controller
             'G' => array()
         );
 
-        $stack = array($request->start); // Создаем стек и помещаем в него стартовую вершину
-        $visited = array(); // Создаем массив для посещенных вершин
-
-        while (!empty($stack)) { // Пока стек не пуст
-            $vertex = array_pop($stack); // Извлекаем вершину из стека
-
-            if (!in_array($vertex, $visited)) { // Если вершина еще не посещена
-                $visited[] = $vertex; // Добавляем ее в список посещенных
-
-                foreach ($graph[$vertex] as $neighbor) { // Обходим всех соседей текущей вершины
-                    if (!in_array($neighbor, $visited)) { // Если сосед еще не посещен
-                        array_push($stack, $neighbor); // Добавляем его в стек
-                    }
-                }
-            }
-        }
+        $visited = $this->DFS($request, $graph);
 
         return view('bfs.result', [
             'result' => $visited,     // Возвращаем список посещенных вершин

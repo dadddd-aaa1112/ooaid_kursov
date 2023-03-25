@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\GraphTrait;
 use Illuminate\Http\Request;
 
 class BFSController extends Controller
 {
-//Алгоритм обхода в ширину (Breadth First Search)
+    use GraphTrait;
+
+    //Алгоритм обхода в ширину (Breadth First Search)
     function getBFS(Request $request)
     {
         $graph = array(
@@ -18,24 +21,7 @@ class BFSController extends Controller
             'F' => array($request->F1, $request->F2)
         );
 
-        $visited = array();
-        $queue = array($request->start);
-
-        while ($queue) {
-            $vertex = array_shift($queue);
-            if (!in_array($vertex, $visited)) {
-
-                    $visited[] = $vertex;
-                    $neighbors = $graph[$vertex];
-                    foreach ($neighbors as $neighbor) {
-                        if (!in_array($neighbor, $visited)) {
-                            $queue[] = $neighbor;
-                        }
-
-                }
-            }
-        }
-
+        $visited = $this->BFS($request, $graph);
 
         return view('bfs.result', [
             'result' => $visited,

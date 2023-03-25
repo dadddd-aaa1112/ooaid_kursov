@@ -2,24 +2,22 @@
 @section('content')
 
     @include('components.headers')
-<br>
-<br>
-dist
-@foreach($dist as $key => $val)
-{{$key}} - {{$val}}
-
-
     <br>
     <br>
-@endforeach
+    <h5>Расстояние от источника до каждой вершины </h5>
+    @foreach($dist as $key => $val)
+        {{$key}} - {{$val}}
+        <br>
+        <br>
+    @endforeach
 
 
-$prev
-@foreach($prev as $key => $val)
-    {{$key}} - {{$val}}
+    <h5>Предыдущие вершины на пути от источника</h5>
+    @foreach($prev as $key => $val)
+        {{$key}} - {{$val}}
 
 
-    <br>
-    <br>
-@endforeach
+        <br>
+        <br>
+    @endforeach
 @endsection

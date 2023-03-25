@@ -28,3 +28,7 @@ Route::post('/dijkstra', [\App\Http\Controllers\DijkstraController::class, 'getD
 
 Route::get('/kruskal', [\App\Http\Controllers\KruskalController::class, 'index'])->name('kruskal.index');
 Route::post('/kruskal', [\App\Http\Controllers\KruskalController::class, 'getKruskal'])->name('kruskal.post');
+
+
+Route::get('/prim', [\App\Http\Controllers\PrimController::class, 'index'])->name('prim.index');
+Route::post('/prim', [\App\Http\Controllers\PrimController::class, 'getPrim'])->name('prim.post');

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Contracts\GetDijkstraInterface;
 use Illuminate\Http\Request;
 
-class DijkstraController extends Controller
+class DijkstraController extends Controller implements GetDijkstraInterface
 {
 //Код алгоритма Дейкстры для поиска кратчайшего пути взвешенного графа
     public function getDijkstra(Request $request)

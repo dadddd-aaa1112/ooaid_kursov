@@ -26,6 +26,9 @@
             <a href="{{route('kruskal.index')}}" type="submit" class="btn btn-dark btn-lg mb-4">
                 Результат для алгоритма поиска минимального остовного дерева (алгоритм Крускала)
             </a>
+            <a href="{{route('prim.index')}}" type="submit" class="btn btn-primary btn-lg mb-4">
+                Результат для алгоритма поиска минимального остовного дерева (алгоритм Прима)
+            </a>
         </div>
 
         <div class="d-flex flex-column w-75 ps-5">

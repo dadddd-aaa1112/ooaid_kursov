@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Contracts\GetKruskalInterface;
 use Illuminate\Http\Request;
 
-class KruskalController extends Controller
+class KruskalController extends Controller implements GetKruskalInterface
 {
 
 //Алгоритм поиска минимального остовного дерева (Kruskals algorithm):
